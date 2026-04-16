@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Starehe Revenue</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: #232323;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Comic Neue', cursive;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .landing-bg-card {
+            background: #111217;
+            border-radius: 18px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+            padding: 60px 60px 60px 60px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            min-width: 800px;
+            min-height: 400px;
+            z-index: 1;
+        }
+        .landing-content {
+            flex: 1;
+            color: #fff;
+            z-index: 2;
+        }
+        .landing-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            letter-spacing: 1px;
+        }
+        .landing-desc {
+            font-size: 1.1rem;
+            color: #bdbdbd;
+            margin-bottom: 38px;
+            max-width: 420px;
+        }
+        .login-btn {
+            padding: 14px 38px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #ff4e50 0%, #f9d423 100%);
+            color: #222;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+            transition: background 0.2s, color 0.2s;
+        }
+        .login-btn:hover {
+            background: linear-gradient(90deg, #43cea2 0%, #185a9d 100%);
+            color: #fff;
+        }
+        /* Decorative circles */
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        .circle.pink {
+            width: 60px; height: 60px;
+            background: #ff4eae;
+            left: -30px; top: 40px;
+        }
+        .circle.cyan {
+            width: 40px; height: 40px;
+            background: #4efcff;
+            left: 30px; bottom: 40px;
+        }
+        .circle.orange {
+            width: 50px; height: 50px;
+            background: #ff6a2b;
+            right: -25px; top: -25px;
+        }
+        /* Placeholder for right-side graphic */
+        .landing-graphic {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .graphic-placeholder {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #ff4e50, #43cea2, #185a9d, #ff4eae, #ff6a2b, #ff4e50);
+            filter: blur(0.5px) brightness(1.1);
+            box-shadow: 0 0 60px 10px #222;
+        }
+        /* Top nav */
+        .landing-nav {
+            position: absolute;
+            top: 32px;
+            right: 60px;
+            display: flex;
+            gap: 32px;
+            z-index: 10;
+        }
+        .landing-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.05rem;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .landing-nav a:hover {
+            opacity: 1;
+        }
+        @media (max-width: 900px) {
+            .landing-bg-card {
+                flex-direction: column;
+                min-width: 320px;
+                padding: 40px 16px;
+            }
+            .landing-graphic {
+                margin-top: 32px;
+            }
+            .landing-nav {
+                right: 16px;
+                top: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-bg-card">
+        <div class="circle pink"></div>
+        <div class="circle cyan"></div>
+        <div class="circle orange"></div>
+        <div class="landing-nav">
+            <a href="#">shop</a>
+            <a href="{{ url_for('login') }}">login</a>
+            <a href="#">about</a>
+            <a href="#">contact</a>
+        </div>
+        <div class="landing-content">
+            <div class="landing-title">STAREHE REVENUE</div>
+            <div class="landing-desc">
+                Welcome to Starehe Revenue. Manage, analyze, and generate reports for your revenue data with ease and style.
+            </div>
+            <a href="{{ url_for('login') }}">
+                <button class="login-btn">Login</button>
+            </a>
+        </div>
+        <div class="landing-graphic">
+            <img src="{{ url_for('static', filename='starehe_logo.png') }}" alt="Starehe Logo" class="landing-logo">
+        </div>
+    </div>
+</body>
+</html>

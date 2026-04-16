@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Files - Attaché OCR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Comic Neue', cursive;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            text-align: center;
+        }
+        .drop-zone {
+            border: 2px dashed #ccc;
+            border-radius: 15px;
+            padding: 40px;
+            font-size: 16px;
+            color: #666;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        .drop-zone:hover {
+            background-color: #f0f0f0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Upload Your Files</h2>
+    <p>Please upload your bill images. You can use the button or drag & drop into the box below.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="files[]" multiple style="display:none">
+        <div class="drop-zone" onclick="document.querySelector('input[type=file]').click();">
+            Drag & Drop files here
+        </div>
+        <br>
+        <button type="submit">Process Files</button>
+    </form>
+
+    {% if excel_file and word_file %}
+        <h3>Download Outputs</h3>
+        <a href="{{ url_for('download', filename=excel_file) }}">Download Excel</a><br>
+        <a href="{{ url_for('download', filename=word_file) }}">Download Word</a>
+    {% endif %}
+</div>
+
+<script>
+    const dropZone = document.querySelector('.drop-zone');
+    const fileInput = document.querySelector('input[type="file"]');
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.style.backgroundColor = '#e9ecef';
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.style.backgroundColor = '';
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.backgroundColor = '';
+        const files = e.dataTransfer.files;
+        fileInput.files = files;
+        dropZone.textContent = `${files.length} file(s) selected`;
+    });
+
+    fileInput.addEventListener('change', () => {
+        if (fileInput.files.length > 0) {
+            dropZone.textContent = `${fileInput.files.length} file(s) selected`;
+        } else {
+            dropZone.textContent = 'Drag & Drop files here';
+        }
+    });
+</script>
+
+</body>
+</html>
